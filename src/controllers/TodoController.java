@@ -1,3 +1,12 @@
+/*
+* File: TodoController.java
+* Author: Vitovszki Tamás
+* Copyright: 2023, Vitovszki Tamás
+* Group: Szoft II/2/N
+* Date: 2023-10-05
+* Github: https://github.com/Tomasman05/
+* Licenc: GNU GPL
+*/
 package controllers;
 
 import java.util.Properties;
@@ -36,7 +45,7 @@ public class TodoController {
     } 
 
     public void update() {
-
+        
     }
 
     public void delete() {

@@ -1,3 +1,12 @@
+/*
+* File: Client.java
+* Author: Vitovszki Tamás
+* Copyright: 2023, Vitovszki Tamás
+* Group: Szoft II/2/N
+* Date: 2023-10-05
+* Github: https://github.com/Tomasman05/
+* Licenc: GNU GPL
+*/
 package models;
 
 import java.io.IOException;
@@ -5,9 +14,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Client {
     HttpClient client;
@@ -29,21 +37,48 @@ public class Client {
         HttpRequest request = genPostRequest(url,body,args);
         return sendRequest(request);
     }
+    public String deletr(String url, String... args) {
+        HttpRequest request = genDeleteRequest(url,args);
+        return sendRequest(request);
+    }
 
-    public HttpRequest genPostRequest(String url,String body, String... args){
-        List<String> headers = new ArrayList<>();
-        headers.add("Content-Type");
-        headers.add("application/json");
+    public String put(String url, String body, String... args) {
+        HttpRequest request = genPutRequest(url,body,args);
+        return sendRequest(request);
+    }
+    public HttpRequest genPutRequest(String url, String body, String... args){
+        Builder builder = HttpRequest.newBuilder();
+        builder.uri(URI.create(url));
+        builder.PUT(HttpRequest.BodyPublishers.ofString(body));
+        builder.header("Content-Type","application/json");
 
         if (args.length > 0) {
-            headers.add("Authorization");
-            headers.add("Bearer " + args[0]);
+            builder.header("Authorization","Bearer"+args[0]);
         }
+        return builder.build();
+    }
+    public HttpRequest genDeleteRequest(String url,  String... args){
+        Builder builder = HttpRequest.newBuilder();
+        builder.uri(URI.create(url));
+        builder.DELETE();
+        builder.header("Content-Type","application/json");
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).headers(headers.toArray(String[]::new))
-                .POST(HttpRequest.BodyPublishers.ofString(body)).build();
-        
-        return request;
+        if (args.length > 0) {
+            builder.header("Authorization","Bearer"+args[0]);
+        }
+        return builder.build();
+    }
+
+    public HttpRequest genPostRequest(String url,String body, String... args){
+        Builder builder = HttpRequest.newBuilder();
+        builder.uri(URI.create(url));
+        builder.POST(HttpRequest.BodyPublishers.ofString(body));
+        builder.header("Content-Type","application/json");
+
+        if (args.length > 0) {
+            builder.header("Authorization","Bearer"+args[0]);
+        }
+        return builder.build();
     }
 
     public String sendRequest(HttpRequest request) {
