@@ -10,8 +10,12 @@
 package controllers;
 
 import java.util.Properties;
+
+import com.google.gson.Gson;
+
 import models.Client;
 import models.Prop;
+import models.Todo;
 
 
 public class TodoController {
@@ -44,11 +48,17 @@ public class TodoController {
         System.out.println(res);  
     } 
 
-    public void update() {
-        
+    public void update(Todo todo) {
+        String url = this.host + this.endpoint+"/"+todo.getId().toString();
+        Gson gson = new Gson();
+        String body = gson.toJson(todo);
+        System.out.println(body);
+        client.put(url, body);
     }
 
-    public void delete() {
-
+    public void delete(Integer id) {
+        String url = this.host + this.endpoint+"/"+id;
+        client.delete(url);
+        System.out.println("User deleted successfuly.");
     }
 }

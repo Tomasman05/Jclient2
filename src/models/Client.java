@@ -37,7 +37,7 @@ public class Client {
         HttpRequest request = genPostRequest(url,body,args);
         return sendRequest(request);
     }
-    public String deletr(String url, String... args) {
+    public String delete(String url, String... args) {
         HttpRequest request = genDeleteRequest(url,args);
         return sendRequest(request);
     }
@@ -69,7 +69,7 @@ public class Client {
         return builder.build();
     }
 
-    public HttpRequest genPostRequest(String url,String body, String... args){
+    private HttpRequest genPostRequest(String url,String body, String... args){
         Builder builder = HttpRequest.newBuilder();
         builder.uri(URI.create(url));
         builder.POST(HttpRequest.BodyPublishers.ofString(body));

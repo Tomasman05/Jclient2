@@ -8,9 +8,11 @@
 * Licenc: GNU GPL
 */
 import controllers.TodoController;
+// import models.Todo;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        new TodoController().create();
+        // new TodoController().update(new Todo(1,"asdasdasda",false,1));
+        new TodoController().delete(1);
     }
 }
