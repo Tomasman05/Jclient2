@@ -36,7 +36,7 @@ public class TodoController {
     public void create() {
         String url = this.host + this.endpoint;
         String body = "{ \"userId\": 1,"+
-        "\"title\":\"Telefon ajándékéba másnak\","+
+        "\"title\":\"Engedj ki cigizni!\","+
         "\"completed\": false"+
         " }";
         System.out.println(body);
